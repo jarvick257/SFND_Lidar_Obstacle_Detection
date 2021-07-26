@@ -35,7 +35,7 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
 }
 
 void cityBlock(
-    std::shared_ptr<pcl::visualization::PCLVisualizer> f_viewer_p,
+    pcl::visualization::PCLVisualizer::Ptr &f_viewer_p,
     std::shared_ptr<ProcessPointClouds<pcl::PointXYZI>> f_pp_p,
     std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> f_inputCloud_p) {
 
@@ -134,8 +134,8 @@ int main (int argc, char** argv)
 {
     std::cout << "starting enviroment" << std::endl;
 
-    auto viewer_p =
-        std::make_shared<pcl::visualization::PCLVisualizer>("3D Viewer");
+    pcl::visualization::PCLVisualizer::Ptr viewer_p(new pcl::visualization::PCLVisualizer("3D Viewer"));
+
     CameraAngle setAngle = XY;
     initCamera(setAngle, viewer_p);
     // simpleHighway(viewer_p);
