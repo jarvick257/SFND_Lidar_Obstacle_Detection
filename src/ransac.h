@@ -43,13 +43,19 @@ namespace project
                 const PointT p1 = m_inputCloud_p->points[*it++];
                 const PointT p2 = m_inputCloud_p->points[*it++];
                 const PointT p3 = m_inputCloud_p->points[*it];
-                const PointT v1 = PointT(p2.x - p1.x, p2.y - p1.y, p2.z - p1.z);
-                const PointT v2 = PointT(p3.x - p1.x, p3.y - p1.y, p3.z - p1.z);
 
-                const PointT norm = PointT(
-                        v1.y * v2.z - v1.z * v2.y,
-                        v1.z * v2.x - v1.x * v2.z,
-                        v1.x * v2.y - v1.y * v2.x);
+                PointT v1, v2, norm;
+                v1.x = p2.x - p1.x;
+                v1.y = p2.y - p1.y;
+                v1.z = p2.z - p1.z;
+
+                v2.x = p3.x - p1.x;
+                v2.y = p3.y - p1.y;
+                v2.z = p3.z - p1.z;
+
+                norm.x = v1.y * v2.z - v1.z * v2.y;
+                norm.y = v1.z * v2.x - v1.x * v2.z;
+                norm.z = v1.x * v2.y - v1.y * v2.x;
 
                 const float A = norm.x;
                 const float B = norm.y;
