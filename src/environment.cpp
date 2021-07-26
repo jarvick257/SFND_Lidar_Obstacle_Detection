@@ -34,10 +34,9 @@ std::vector<Car> initHighway(bool renderScene, pcl::visualization::PCLVisualizer
     return cars;
 }
 
-void cityBlock(
-    pcl::visualization::PCLVisualizer::Ptr &f_viewer_p,
-    std::shared_ptr<ProcessPointClouds<pcl::PointXYZI>> f_pp_p,
-    std::shared_ptr<pcl::PointCloud<pcl::PointXYZI>> f_inputCloud_p) {
+void cityBlock(pcl::visualization::PCLVisualizer::Ptr &f_viewer_p,
+               std::shared_ptr<ProcessPointClouds<pcl::PointXYZI>> f_pp_p,
+               pcl::PointCloud<pcl::PointXYZI>::Ptr f_inputCloud_p) {
 
   auto filteredCloud =
       f_pp_p->FilterCloud(f_inputCloud_p, 0.2, Eigen::Vector4f(-15, -5, -5, 0),
@@ -51,7 +50,7 @@ void cityBlock(
                    Color(0.2, 0.2, 0.2));
 
   // Cluster obstacles
-  auto clusters = f_pp_p->Clustering(segCloud.first, 0.5, 10, 1000);
+  std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters = f_pp_p->Clustering(segCloud.first, 0.5, 10, 1000);
   int clusterId = 0;
   const std::vector<Color> colors = {Color(1, 0, 0), Color(1, 1, 0),
                                      Color(0, 1, 0), Color(0, 1, 1),
@@ -144,7 +143,7 @@ int main (int argc, char** argv)
     std::vector<boost::filesystem::path> stream =
         pp_p->streamPcd("../src/sensors/data/pcd/data_1");
     auto streamIterator = stream.begin();
-    auto inputCloudI_p = std::make_shared<pcl::PointCloud<pcl::PointXYZI>>();
+    pcl::PointCloud<pcl::PointXYZI>::Ptr inputCloudI_p(new pcl::PointCloud<pcl::PointXYZI>());
 
     while (!viewer_p->wasStopped()) {
       // Clear viewer

@@ -24,7 +24,7 @@ class EuclideanClusterExtraction
     void setSearchMethod(std::shared_ptr<project::KdTree<PointT>> f_tree_p){
         m_tree_p = f_tree_p;
     }
-    void setInputCloud(std::shared_ptr<pcl::PointCloud<PointT>> f_cloud_p){
+    void setInputCloud(typename pcl::PointCloud<PointT>::Ptr& f_cloud_p){
         m_cloud_p = f_cloud_p;
     }
 
@@ -53,7 +53,7 @@ class EuclideanClusterExtraction
     int m_minSize;
     int m_maxSize;
     std::shared_ptr<project::KdTree<PointT>> m_tree_p;
-    std::shared_ptr<pcl::PointCloud<PointT>> m_cloud_p;
+    typename pcl::PointCloud<PointT>::Ptr m_cloud_p;
 
     void clusterHelper(int indice, pcl::PointIndices &cluster, std::vector<bool> &processed){
         processed[indice] = true;
