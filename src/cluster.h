@@ -42,8 +42,10 @@ class EuclideanClusterExtraction
             }
 
             pcl::PointIndices cluster;
-            this->clusterHelper(i, cluster, processed);
-            f_clusterIndices.push_back(cluster);
+	    this->clusterHelper(i, cluster, processed);
+	    if(cluster.indices.size() < m_maxSize && cluster.indices.size() > m_minSize){
+		    f_clusterIndices.push_back(cluster);
+	    }
         }
 
     }

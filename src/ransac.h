@@ -28,8 +28,6 @@ namespace project
             std::unordered_set<int> inliersResult;
             srand(time(NULL));
 
-            // TODO: Fill in this function
-
             // For max iterations
             while (m_iterations--) {
                 std::unordered_set<int> inliers;
@@ -60,7 +58,7 @@ namespace project
                 const float A = norm.x;
                 const float B = norm.y;
                 const float C = norm.z;
-                const float D = -(A*p1.x + B*p1.y, + C*p1.z);
+                const float D = -(A*p1.x + B*p1.y + C*p1.z);
 
                 const float denom = sqrt(A*A + B*B + C*C);
 

@@ -39,8 +39,8 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr &f_viewer_p,
                pcl::PointCloud<pcl::PointXYZI>::Ptr f_inputCloud_p) {
 
   auto filteredCloud =
-      f_pp_p->FilterCloud(f_inputCloud_p, 0.2, Eigen::Vector4f(-15, -5, -5, 0),
-                          Eigen::Vector4f(50, 5, 5, 0));
+      f_pp_p->FilterCloud(f_inputCloud_p, 0.2, Eigen::Vector4f(-15, -6, -6, 0),
+                          Eigen::Vector4f(30, 6, 6, 0));
   // renderPointCloud(f_viewer_p, filteredCloud, "inputCloud");
 
   // Split cloud into plane and obstacles
@@ -50,7 +50,8 @@ void cityBlock(pcl::visualization::PCLVisualizer::Ptr &f_viewer_p,
                    Color(0.2, 0.2, 0.2));
 
   // Cluster obstacles
-  std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters = f_pp_p->Clustering(segCloud.first, 0.5, 10, 1000);
+  std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> clusters =
+      f_pp_p->Clustering(segCloud.first, 0.5, 20, 1000);
   int clusterId = 0;
   const std::vector<Color> colors = {Color(1, 0, 0), Color(1, 1, 0),
                                      Color(0, 1, 0), Color(0, 1, 1),
